@@ -64,14 +64,15 @@ class MapViewController: UIViewController {
     }
 
     @objc func drawRoute() {
+        guard let position = DataServices.shared.positionOfMarker else {return}
         guard let points = DataServices.shared.polyLines?.routes[0].overview_polyline.points else {return}
         guard let path = GMSPath(fromEncodedPath: points) else {return}
         DispatchQueue.main.async {
             self.mapView.clear()
-            self.setupMarker(coordinate: DataServices.shared.positionOfMarker!)
+            self.setupMarker(coordinate: position)
             let polyline = GMSPolyline(path: path)
             polyline.strokeColor = UIColor.blue
-            polyline.strokeWidth = 2
+            polyline.strokeWidth = 5
             polyline.map = self.mapView
         }
         
@@ -126,17 +127,20 @@ extension MapViewController: CLLocationManagerDelegate {
 
 extension MapViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        setupMarker(coordinate: coordinate)
         endLocation = coordinate
 
         DataServices.shared.drawPath(start: startLocation, end: endLocation)
     }
     
     func setupMarker(coordinate: CLLocationCoordinate2D) {
+        guard let address = DataServices.shared.polyLines?.routes[0].legs[0].end_address else {return}
+        guard let distance = DataServices.shared.polyLines?.routes[0].legs[0].distance.text else {return}
+        guard let duration = DataServices.shared.polyLines?.routes[0].legs[0].duration.text else {return}
+        
         marker.position = coordinate
-        marker.title = "ABC"
-        marker.snippet = "abc"
-        marker.opacity = 0.5
+        marker.title = address
+        marker.snippet = "Distance: " + distance + "\r" + "Duration: " + duration
+        marker.opacity = 0.8
         marker.map = mapView
     }
 }

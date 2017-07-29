@@ -13,6 +13,7 @@ let notificationJSON = Notification.Name.init("JSON")
 class DataServices {
     static var shared: DataServices = DataServices()
     
+    //get polylines from JSON
     private var _polyLines: Polylines?
     
     var polyLines: Polylines? {
@@ -27,6 +28,7 @@ class DataServices {
         }
     }
     
+    //get position of marker from tap on map
     private var _positionOfMarker: CLLocationCoordinate2D?
     
     var positionOfMarker: CLLocationCoordinate2D? {

@@ -22,6 +22,16 @@ struct Overview_Polyline: Codable {
 }
 
 struct Legs: Codable {
-    let end_adress: String
+    let end_address: String
+    let distance: Distance
+    let duration: Duration
+}
+
+struct Distance: Codable {
+    let text: String
+}
+
+struct Duration: Codable {
+    let text: String
 }
 
