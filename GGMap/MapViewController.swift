@@ -25,6 +25,13 @@ class MapViewController: UIViewController {
     
     // A default location to use when location permission is not granted.
     let defaultLocation = CLLocation(latitude: 21.0337884, longitude: 105.7677234)
+    
+    var marker = GMSMarker()
+    
+    var startLocation = CLLocationCoordinate2D()
+    var endLocation = CLLocationCoordinate2D()
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,56 +56,28 @@ class MapViewController: UIViewController {
         
         
         mapView.delegate = self
+        createNotificationObserver()
+    }
+    
+    func createNotificationObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(drawRoute), name: notificationJSON, object: nil)
     }
 
-//    func listLikelyPlaces() {
-//        //Clean up from previous sessions
-//        likelyPlaces.removeAll()
-//
-//        placesClient.currentPlace(callback: {(placeLikelihoods, error) in
-//            if let error = error {
-//                //TODO: Handle the error
-//                print("Current Place error: \(error.localizedDescription)")
-//                return
-//            }
-//
-//            //Get likely places and add to the list
-//            if let likelihoodList = placeLikelihoods {
-//                for likelihood in likelihoodList.likelihoods {
-//                    let place = likelihood.place
-//                    self.likelyPlaces.append(place)
-//                }
-//            }
-//        })
-//    }
-
-//    @IBAction func goToPlaces(_ sender: UIButton) {
-//        performSegue(withIdentifier: "segueToSelect", sender: sender)
-//    }
-//
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "segueToSelect" {
-//            if let nextViewController = segue.destination as? PlacesViewController {
-//                nextViewController.likelyPlaces = likelyPlaces
-//            }
-//        }
-//    }
+    @objc func drawRoute() {
+        guard let points = DataServices.shared.polyLines?.routes[0].overview_polyline.points else {return}
+        guard let path = GMSPath(fromEncodedPath: points) else {return}
+        DispatchQueue.main.async {
+            self.mapView.clear()
+            self.setupMarker(coordinate: DataServices.shared.positionOfMarker!)
+            let polyline = GMSPolyline(path: path)
+            polyline.strokeColor = UIColor.blue
+            polyline.strokeWidth = 2
+            polyline.map = self.mapView
+        }
+        
+    }
     
-    //Update the map once the user has made their selection
-//    @IBAction func unwindToMain(segue: UIStoryboardSegue) {
-//        //Clear the map
-//        mapView.clear()
-//
-//        //Add a marker to the map
-//        if let selectedPlace = selectedPlace {
-//            let marker = GMSMarker(position: selectedPlace.coordinate)
-//            marker.title = selectedPlace.name
-//            marker.snippet = selectedPlace.formattedAddress
-//            marker.map = mapView
-//        }
-//        listLikelyPlaces()
-//    }
-//
+
 
 }
 
@@ -108,6 +87,8 @@ extension MapViewController: CLLocationManagerDelegate {
         let location: CLLocation = locations.last!
         print("Location: \(location)")
         
+        startLocation = location.coordinate
+        
         let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: zoomLevel)
         
         if mapView.isHidden {
@@ -116,7 +97,6 @@ extension MapViewController: CLLocationManagerDelegate {
         } else {
             mapView.animate(to: camera)
         }
-//        listLikelyPlaces()
     }
     
     //Handle authorization for the location manager
@@ -146,9 +126,18 @@ extension MapViewController: CLLocationManagerDelegate {
 
 extension MapViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        let marker = GMSMarker(position: coordinate)
-        marker.title = "abc"
-        marker.snippet = "ABC"
+        setupMarker(coordinate: coordinate)
+        endLocation = coordinate
+
+        DataServices.shared.drawPath(start: startLocation, end: endLocation)
+    }
+    
+    func setupMarker(coordinate: CLLocationCoordinate2D) {
+        marker.position = coordinate
+        marker.title = "ABC"
+        marker.snippet = "abc"
+        marker.opacity = 0.5
         marker.map = mapView
     }
 }
+

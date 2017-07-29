@@ -12,7 +12,8 @@
 		6527DF391F234CC0000519A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6527DF371F234CC0000519A7 /* Main.storyboard */; };
 		6527DF3B1F234CC0000519A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6527DF3A1F234CC0000519A7 /* Assets.xcassets */; };
 		6527DF3E1F234CC0000519A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6527DF3C1F234CC0000519A7 /* LaunchScreen.storyboard */; };
-		6527DF461F25AAE9000519A7 /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6527DF451F25AAE9000519A7 /* PlacesViewController.swift */; };
+		6527DF481F274DBB000519A7 /* Polylines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6527DF471F274DBB000519A7 /* Polylines.swift */; };
+		6527DF4A1F274F41000519A7 /* DataServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6527DF491F274F41000519A7 /* DataServices.swift */; };
 		9E8FB09A98F2935ACCF20CD6 /* Pods_GGMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9D467C351C029ACD67D67CD /* Pods_GGMap.framework */; };
 /* End PBXBuildFile section */
 
@@ -24,7 +25,8 @@
 		6527DF3A1F234CC0000519A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6527DF3D1F234CC0000519A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6527DF3F1F234CC1000519A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6527DF451F25AAE9000519A7 /* PlacesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesViewController.swift; sourceTree = "<group>"; };
+		6527DF471F274DBB000519A7 /* Polylines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polylines.swift; sourceTree = "<group>"; };
+		6527DF491F274F41000519A7 /* DataServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataServices.swift; sourceTree = "<group>"; };
 		AEDCC2B6433A32523F002769 /* Pods-GGMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GGMap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GGMap/Pods-GGMap.debug.xcconfig"; sourceTree = "<group>"; };
 		D0E62DD9038BF946D64589EC /* Pods-GGMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GGMap.release.xcconfig"; path = "Pods/Target Support Files/Pods-GGMap/Pods-GGMap.release.xcconfig"; sourceTree = "<group>"; };
 		F9D467C351C029ACD67D67CD /* Pods_GGMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GGMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,7 +75,8 @@
 			children = (
 				6527DF331F234CC0000519A7 /* AppDelegate.swift */,
 				6527DF351F234CC0000519A7 /* MapViewController.swift */,
-				6527DF451F25AAE9000519A7 /* PlacesViewController.swift */,
+				6527DF491F274F41000519A7 /* DataServices.swift */,
+				6527DF471F274DBB000519A7 /* Polylines.swift */,
 				6527DF371F234CC0000519A7 /* Main.storyboard */,
 				6527DF3A1F234CC0000519A7 /* Assets.xcassets */,
 				6527DF3C1F234CC0000519A7 /* LaunchScreen.storyboard */,
@@ -213,7 +216,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6527DF461F25AAE9000519A7 /* PlacesViewController.swift in Sources */,
+				6527DF4A1F274F41000519A7 /* DataServices.swift in Sources */,
+				6527DF481F274DBB000519A7 /* Polylines.swift in Sources */,
 				6527DF361F234CC0000519A7 /* MapViewController.swift in Sources */,
 				6527DF341F234CC0000519A7 /* AppDelegate.swift in Sources */,
 			);
